@@ -8,7 +8,7 @@ It looks same for some bars, but I prefer to create this configuration for me.
 ## About
 
 ##### Polybar
-- Lock keys visibility (because my laptop haven't any indications)
+- Lock keys visibility (because my laptop has't any indications)
 - Launcher for pavucontrol and nemo
 - Song information (play/pause with middle button) (working with playerctl)
 - Keyboard layout
