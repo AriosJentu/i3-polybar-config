@@ -5,9 +5,9 @@ My i3 configuration with Polybar panel.
 I think it will be better to save my i3wm with Polybar configurations in my own repository.
 It looks same for some bars, but I prefer to create this configuration for me.
 
-##About
+## About
 
-#####Polybar
+##### Polybar
 - Lock keys visibility (because my laptop haven't any indications)
 - Launcher for pavucontrol and nemo
 - Song information (play/pause with middle button) (working with playerctl)
@@ -17,7 +17,7 @@ It looks same for some bars, but I prefer to create this configuration for me.
 - Laptop battery information
 - System control polybar-menu
 
-#####i3
+##### i3
 - Changed default font to OpenSans
 - Some new shortcuts for launch apps and control media-player
 - Configured touchpad (Elan Touchpad)
@@ -29,7 +29,7 @@ It looks same for some bars, but I prefer to create this configuration for me.
 - Disabled focus following mouse
 - Compton as window manager
 
-##Packages in use
+## Packages in use
 * python
 * polybar
 * i3lock
