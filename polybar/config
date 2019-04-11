@@ -1,0 +1,460 @@
+[fonts]
+opensansreg = DroidSans:Regular:size=10
+opensanssemibold = DroidSans:SemiBold:size=9
+opensansbold = DroidSans:Bold:size=9
+opensansboldhigh = DroidSans:Bold:size=11
+opensansital = DroidSans:Italic:size=10
+xos = xos4\ Terminus:size=14;0
+nerd = TerminessTTF Nerd Font:size=12;0
+
+
+[colors]
+light-red = #D95B5B
+light-green = #249824
+light-purple = #A44BA0
+
+menucol-yellow = #F7F272
+menucol-blue = #1771F1
+menucol-orange = #FFAF60
+menucol-red = #F85C50
+menucol-green = #77BD8B
+menucol-sealine = #00CF91
+menucol-purple = #9A76B3
+menucol-pink = #FF77BF
+menucol-deepblue = #6560FF
+menucol-lightblue = #60FFF7
+
+
+fav-purple = #6633FF
+dark = #111
+dark-red = #311
+dark-green = #131
+dark-purple = #201134
+light = #eee
+gray = #999
+dark-gray = #333
+
+
+[bar/main]
+enable-ipc = true
+override-redirect = false
+
+bottom = false
+width = 100%
+height = 26 ;px
+
+background = ${colors.dark}
+foreground = ${colors.light}
+
+line-color = ${colors.light-purple}
+line-size = 3
+
+separator = "   "
+
+;List of fonts
+font-0 = ${fonts.opensansreg}
+font-1 = ${fonts.opensanssemibold}
+font-2 = ${fonts.opensansbold}
+font-3 = ${fonts.opensansital}
+font-4 = ${fonts.xos}
+font-5 = ${fonts.nerd}
+font-6 = ${fonts.opensansboldhigh}
+
+wm-restack = i3
+tray-position = left
+
+modules-left = workspaces kbstates apppavucontrol appfilemanager mediaplayer
+modules-center = date
+modules-right = layout temperature memory memoryswap cpu battery brightness sound wifi powermenu
+
+
+;Date correction
+[module/date]
+type = internal/date
+
+time = %H:%M
+date = %A, %B %d
+date-alt = %A, %B %d, %Y
+time-alt = %H:%M:%S
+
+format-prefix = " "
+format-padding = 2
+format-underline = ${colors.menucol-orange}
+format-foreground = ${colors.menucol-orange}
+interval = 20
+
+label = %date%, %time%
+label-font = 2
+label-foreground = ${colors.light}
+
+
+;Workspaces
+[module/workspaces]
+type = internal/i3
+
+pin-workspaces = true
+strip-wsnumbers = true
+index-sort = true
+
+format = <label-state> <label-mode>
+
+label-dimmed-underline = ${colors.background}
+
+;On editing mode (resize for ex)
+label-mode = %mode%
+label-mode-background = ${colors.dark-purple}
+label-mode-underline = ${colors.fav-purple}
+label-mode-padding = 2
+label-mode-font = 3
+
+label-focused = %index%
+label-focused-background = ${colors.dark-green}
+label-focused-underline = ${colors.light-green}
+label-focused-padding = 3
+label-focused-font = 3
+
+label-unfocused = %index%
+label-unfocused-foreground = ${colors.gray}
+label-unfocused-padding = 3
+label-unfocused-font = 3
+
+label-visible = %index%
+label-visible-background = ${colors.dark-purple}
+label-visible-underline = ${colors.light-purple}
+label-visible-padding = 3
+label-visible-font = 3
+
+label-urgent = %index%
+label-urgent-background = ${colors.dark-red}
+label-urgent-underline = ${colors.light-red}
+label-urgent-padding = 3
+label-urgent-font = 3
+
+
+;Media Player
+[module/mediaplayer]
+type = custom/script
+format = <label>
+format-padding = 2
+exec = /home/arios/.config/polybar/player.py
+tail = true
+label-font = 3
+click-middle = playerctl play-pause
+
+format-underline = ${colors.menucol-blue}
+format-foreground = ${colors.menucol-blue}
+
+
+
+[module/apppavucontrol]
+type = custom/text
+content = 
+content-font = 7
+content-padding = 2
+click-left = "pavucontrol > /dev/null 2>&1 &"
+
+
+[module/appfilemanager]
+type = custom/text
+content = 
+content-font = 7
+content-padding = 2
+click-left = "nemo > /dev/null 2>&1 &"
+
+
+
+;Network
+[module/wifi]
+type = internal/network
+interface = wlp3s0
+format-connected =  <ramp-signal>
+format-connected-padding = 2
+format-connected-foreground = ${colors.menucol-green}
+format-connected-underline = ${colors.menucol-green}
+
+format-disconnected = " "
+format-disconnected-font = 7
+format-disconnected-padding = 2
+format-disconnected-foreground = ${colors.menucol-yellow}
+format-disconnected-underline = ${colors.menucol-yellow}
+
+ramp-signal-0 = " "
+ramp-signal-1 = "▂"
+ramp-signal-2 = "▄"
+ramp-signal-3 = "▅"
+ramp-signal-4 = "▇"
+ramp-signal-font = 7
+ramp-signal-foreground = ${colors.light}
+
+
+
+;Sound
+[module/sound]
+type = internal/alsa
+
+format-volume = <ramp-volume> <label-volume>
+format-volume-padding = 2
+format-volume-underline = ${colors.menucol-sealine}
+
+label-volume = %percentage%
+label-volume-font = 3
+
+label-muted =  (%percentage%)
+label-muted-font = 3
+label-muted-padding = 2
+label-muted-foreground = ${colors.gray}
+label-muted-underline = ${colors.menucol-sealine}
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-font = 7
+ramp-volume-foreground = ${colors.menucol-sealine}
+
+
+
+;Brightness
+[module/brightness]
+type = internal/xbacklight
+format = <label>
+format-padding = 2
+format-prefix = 
+format-underline = ${colors.menucol-yellow}
+format-prefix-foreground = ${colors.menucol-yellow}
+
+label = " %percentage%"
+label-font = 3
+
+
+
+;Keyboard Layout
+[module/layout]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = caps lock
+blacklist-2 = scroll lock
+
+format-prefix = " "
+format-underline = ${colors.menucol-blue}
+format-foreground = ${colors.menucol-blue}
+format-padding = 2
+
+label-layout = %layout%
+label-layout-font = 2
+label-layout-foreground = ${colors.light}
+
+
+
+;Keyboard lock states
+[module/kbstates]
+type = custom/script
+format = <label>
+format-underline = ${colors.menucol-green}
+format-padding = 2
+
+exec = $HOME/.config/polybar/kblocks.py
+tail = true
+interval = 0.5
+label-font = 7
+label-foreground = ${colors.menucol-green}
+
+
+
+;Exit Button
+[module/powermenu]
+type = custom/menu
+
+expand-right = false
+
+label-open = ⏻
+label-open-font = 7
+label-open-padding = 2
+label-separator = "  "
+label-layout-font = 3
+
+label-open-foreground = ${colors.menucol-lightblue}
+label-open-underline = ${colors.menucol-lightblue}
+
+label-close = 
+label-close-font = 7
+label-close-padding = 2
+
+label-close-foreground = ${colors.light-red}
+label-close-underline = ${colors.light-red}
+
+menu-0-0 = Log Out
+menu-0-0-exec = menu-open-1
+
+menu-0-1 = Suspend
+menu-0-1-exec = menu-open-2
+
+menu-0-2 = Lock
+menu-0-2-exec = menu-open-3
+
+menu-0-3 = Shut Down
+menu-0-3-exec = menu-open-4
+
+menu-0-4 = Reboot
+menu-0-4-exec = menu-open-5
+
+;Log Out menu
+menu-1-0 = Log Out
+menu-1-0-exec = sh ~/.config/i3/lock.sh logout
+
+menu-1-1 = 
+menu-1-1-exec = menu-open-0
+
+;Suspend menu
+menu-2-0 = Suspend
+menu-2-0-exec = sh ~/.config/i3/lock.sh suspend
+
+menu-2-1 = 
+menu-2-1-exec = menu-open-0
+
+;Lock menu
+menu-3-0 = Lock
+menu-3-0-exec = sh ~/.config/i3/lock.sh lock
+
+menu-3-1 = 
+menu-3-1-exec = menu-open-0
+
+;Shut Down menu
+menu-4-0 = Shut Down
+menu-4-0-exec = sh ~/.config/i3/lock.sh shutdown
+
+menu-4-1 = 
+menu-4-1-exec = menu-open-0
+
+;Reboot menu
+menu-5-0 = Reboot
+menu-5-0-exec = sh ~/.config/i3/lock.sh reboot
+
+menu-5-1 = 
+menu-5-1-exec = menu-open-0
+
+menu-0-0-font = 2
+menu-0-1-font = 2
+menu-0-2-font = 2
+menu-0-3-font = 2
+menu-0-4-font = 2
+menu-1-0-font = 2
+menu-1-1-font = 7
+menu-2-0-font = 2
+menu-2-1-font = 7
+menu-3-0-font = 2
+menu-3-1-font = 7
+menu-4-0-font = 2
+menu-4-1-font = 7
+menu-5-0-font = 2
+menu-5-1-font = 7
+
+
+
+
+;Battery Indicator
+[module/battery]
+type = internal/battery
+battery = BAT1
+full-at = 100
+
+format-charging = <animation-charging> <label-charging>
+format-charging-padding = 2
+format-charging-underline = ${colors.menucol-orange}
+
+format-discharging = <animation-discharging> <label-discharging>
+format-discharging-padding = 2
+format-discharging-underline = ${colors.menucol-orange}
+
+label-charging = %percentage%
+label-charging-font = 2
+
+label-discharging = %percentage%
+label-discharging-font = 2
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750
+animation-charging-foreground = ${colors.menucol-orange}
+
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-3 = 
+animation-discharging-4 = 
+animation-discharging-5 = 
+animation-discharging-6 = 
+animation-discharging-7 = 
+animation-discharging-8 = 
+animation-discharging-9 = 
+animation-discharging-framerate = 750
+animation-discharging-foreground = ${colors.menucol-orange}
+
+
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+format = <label>
+format-padding = 2
+format-underline = ${colors.menucol-red}
+
+format-prefix = 
+format-prefix-foreground = ${colors.menucol-red}
+
+label = " %percentage%"
+label-font = 3
+
+
+
+[module/memory]
+type = internal/memory
+interval = 3
+format = <label>
+format-padding = 2
+format-underline = ${colors.menucol-purple}
+
+format-prefix = 
+format-prefix-foreground = ${colors.menucol-purple}
+
+label = " %gb_used%"
+label-font = 3
+
+[module/memoryswap]
+type = internal/memory
+interval = 3
+format = <label>
+format-padding = 2
+format-underline = ${colors.menucol-pink}
+
+format-prefix = 
+format-prefix-foreground = ${colors.menucol-pink}
+
+label = " %gb_swap_used%"
+label-font = 3
+
+
+
+[module/temperature]
+type = internal/temperature
+interval = 0.5
+format = <ramp> <label>
+format-padding = 2
+format-underline = ${colors.menucol-deepblue}
+
+format-warn = <ramp> <label-warn>
+label = %temperature-c%
+label-font = 3
+
+label-warn = "%temperature-c% "
+label-warn-font = 3
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-font = 7
+ramp-foreground = ${colors.menucol-deepblue}
