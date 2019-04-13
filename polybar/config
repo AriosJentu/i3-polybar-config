@@ -203,7 +203,7 @@ label-muted =  (%percentage%)
 label-muted-font = 3
 label-muted-padding = 2
 label-muted-foreground = ${colors.gray}
-label-muted-underline = ${colors.menucol-sealine}
+label-muted-underline = ${colors.gray}
 
 ramp-volume-0 = 
 ramp-volume-1 = 
@@ -259,95 +259,17 @@ label-font = 7
 label-foreground = ${colors.menucol-green}
 
 
-
-;Exit Button
+;Custom Exit Button
 [module/powermenu]
-type = custom/menu
+type = custom/text
 
-expand-right = false
+content = ⏻
+content-font = 7
+content-padding = 2
+content-foreground = ${colors.menucol-lightblue}
+content-underline = ${colors.menucol-lightblue}
 
-label-open = ⏻
-label-open-font = 7
-label-open-padding = 2
-label-separator = "  "
-label-layout-font = 3
-
-label-open-foreground = ${colors.menucol-lightblue}
-label-open-underline = ${colors.menucol-lightblue}
-
-label-close = 
-label-close-font = 7
-label-close-padding = 2
-
-label-close-foreground = ${colors.light-red}
-label-close-underline = ${colors.light-red}
-
-menu-0-0 = Log Out
-menu-0-0-exec = menu-open-1
-
-menu-0-1 = Suspend
-menu-0-1-exec = menu-open-2
-
-menu-0-2 = Lock
-menu-0-2-exec = menu-open-3
-
-menu-0-3 = Shut Down
-menu-0-3-exec = menu-open-4
-
-menu-0-4 = Reboot
-menu-0-4-exec = menu-open-5
-
-;Log Out menu
-menu-1-0 = Log Out
-menu-1-0-exec = sh ~/.config/i3/lock.sh logout
-
-menu-1-1 = 
-menu-1-1-exec = menu-open-0
-
-;Suspend menu
-menu-2-0 = Suspend
-menu-2-0-exec = sh ~/.config/i3/lock.sh suspend
-
-menu-2-1 = 
-menu-2-1-exec = menu-open-0
-
-;Lock menu
-menu-3-0 = Lock
-menu-3-0-exec = sh ~/.config/i3/lock.sh lock
-
-menu-3-1 = 
-menu-3-1-exec = menu-open-0
-
-;Shut Down menu
-menu-4-0 = Shut Down
-menu-4-0-exec = sh ~/.config/i3/lock.sh shutdown
-
-menu-4-1 = 
-menu-4-1-exec = menu-open-0
-
-;Reboot menu
-menu-5-0 = Reboot
-menu-5-0-exec = sh ~/.config/i3/lock.sh reboot
-
-menu-5-1 = 
-menu-5-1-exec = menu-open-0
-
-menu-0-0-font = 2
-menu-0-1-font = 2
-menu-0-2-font = 2
-menu-0-3-font = 2
-menu-0-4-font = 2
-menu-1-0-font = 2
-menu-1-1-font = 7
-menu-2-0-font = 2
-menu-2-1-font = 7
-menu-3-0-font = 2
-menu-3-1-font = 7
-menu-4-0-font = 2
-menu-4-1-font = 7
-menu-5-0-font = 2
-menu-5-1-font = 7
-
+click-left = sh ~/.config/i3/powermenu.sh
 
 
 

@@ -15,7 +15,7 @@ It looks same for some bars, but I prefer to create this configuration for me.
 - Processor temperature
 - RAM/SWAP in GBs
 - Laptop battery information
-- System control polybar-menu
+- Power control
 
 ##### i3
 - Changed default font to OpenSans
@@ -33,7 +33,7 @@ It looks same for some bars, but I prefer to create this configuration for me.
 * python
 * polybar
 * i3lock
-* j4-dmenu-desktop
 * rofi
 * twmnd
 * compton
+* zenity
