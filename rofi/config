@@ -1,0 +1,4 @@
+rofi.combi-modi:    window,drun,ssh
+rofi.theme:         android_notification
+rofi.font:          OpenSans 11
+rofi.modi:          combi

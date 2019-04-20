@@ -49,9 +49,9 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec rofi -show drun -show-icons
-bindsym $mod+Tab exec rofi -show window -show-icons
-bindsym $mod+Shift+Tab exec rofi -show windowcd -show-icons
+bindsym $mod+d exec rofi -show drun -show-icons -location 2 -yoffset 30
+bindsym $mod+Tab exec rofi -show window -show-icons -location 2 -yoffset 30
+bindsym $mod+Shift+Tab exec rofi -show windowcd -show-icons -location 2 -yoffset 30
 
 #    dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
@@ -180,8 +180,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $i3exit sh ~/.config/i3/lock.sh
-
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id sh ~/.config/i3/lock.sh lock, mode "default"
@@ -200,12 +198,11 @@ bindsym $mod+Pause mode "$mode_system"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-        status_command 		i3status
-	position		top
-	workspace_buttons	yes
-	
-}
+#bar {
+#    status_command 		i3status
+#	position		top
+#	workspace_buttons	yes
+#}
 
 # Assign Workspaces: xprop
 assign [class="Google-chrome"] $ws1
@@ -217,13 +214,15 @@ assign [class="Mainwindow.py"] $ws5 #PlayOnLinux
 assign [class="Blender"] $ws6
 
 #Floating definition
+#xprop
 for_window [class="Nemo"] floating enable
 for_window [class="Termite"] floating enable
 for_window [class="Wine"] floating enable
 for_window [class="Mainwindow.py"] floating enable #PlayOnLinux
 for_window [class="Pavucontrol"] floating enable
 for_window [class="Engrampa"] floating enable
-
+for_window [class="Arandr"] floating enable
+for_window [class="Nm-connection-editor"] floating enable
 
 #Volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%   #increase sound volume
@@ -243,7 +242,6 @@ bindcode Mod1+115 exec playerctl next
 
 focus_follows_mouse no
 
-exec compton -f --vsync drm
 exec nitrogen --restore
 
 #xinput list-props "ETPS/2 Elantech Touchpad"
@@ -252,17 +250,18 @@ exec_always xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Natural Scrolli
 exec_always xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Middle Emulation Enabled" 1        #Touchpad Enable Middle Click Simulation
 exec_always xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Disable While Typing Enabled" 0    #Touchpad Disable While Typing Enabled
 exec_always xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Horizontal Scroll Enabled" 1       #Touchpad Horizontal Scrolling enable
-exec_always xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Accel Speed" 0.14     #Touchpad Accel Speed
+exec_always xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Accel Speed" 0.14                  #Touchpad Accel Speed
 
 #Keyboard Layout
 exec_always setxkbmap -layout us,ru
 exec_always setxkbmap -option "grp:win_space_toggle"
 
 #Applications startup
+
 exec --no-startup-id telegram-desktop
 exec --no-startup-id vk-messenger
 exec --no-startup-id kdeconnect-indicator
-exec --no-startup-id twmnd
+exec --no-startup-id dunst
 
 #Screenshoter
 bindsym --release Shift+Print exec sh $HOME/.config/i3/screenshot.sh partial

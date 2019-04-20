@@ -63,8 +63,8 @@ font-6 = ${fonts.opensansboldhigh}
 wm-restack = i3
 tray-position = left
 
-modules-left = workspaces kbstates apppavucontrol appfilemanager mediaplayer
-modules-center = date
+modules-left = workspaces kbstates settings appfilemanager mediaplayer
+modules-center = date media
 modules-right = layout temperature memory memoryswap cpu battery brightness sound wifi powermenu
 
 
@@ -145,13 +145,12 @@ format-underline = ${colors.menucol-blue}
 format-foreground = ${colors.menucol-blue}
 
 
-
-[module/apppavucontrol]
+[module/settings]
 type = custom/text
 content = 
 content-font = 7
 content-padding = 2
-click-left = "pavucontrol > /dev/null 2>&1 &"
+click-left = sh ~/.config/i3/settings.sh
 
 
 [module/appfilemanager]
@@ -160,7 +159,6 @@ content = 
 content-font = 7
 content-padding = 2
 click-left = "nemo > /dev/null 2>&1 &"
-
 
 
 ;Network
@@ -187,7 +185,6 @@ ramp-signal-font = 7
 ramp-signal-foreground = ${colors.light}
 
 
-
 ;Sound
 [module/sound]
 type = internal/alsa
@@ -212,7 +209,6 @@ ramp-volume-font = 7
 ramp-volume-foreground = ${colors.menucol-sealine}
 
 
-
 ;Brightness
 [module/brightness]
 type = internal/xbacklight
@@ -224,7 +220,6 @@ format-prefix-foreground = ${colors.menucol-yellow}
 
 label = " %percentage%"
 label-font = 3
-
 
 
 ;Keyboard Layout
@@ -242,7 +237,6 @@ format-padding = 2
 label-layout = %layout%
 label-layout-font = 2
 label-layout-foreground = ${colors.light}
-
 
 
 ;Keyboard lock states
@@ -270,7 +264,6 @@ content-foreground = ${colors.menucol-lightblue}
 content-underline = ${colors.menucol-lightblue}
 
 click-left = sh ~/.config/i3/powermenu.sh
-
 
 
 ;Battery Indicator
@@ -315,7 +308,6 @@ animation-discharging-framerate = 750
 animation-discharging-foreground = ${colors.menucol-orange}
 
 
-
 [module/cpu]
 type = internal/cpu
 interval = 0.5
@@ -328,7 +320,6 @@ format-prefix-foreground = ${colors.menucol-red}
 
 label = " %percentage%"
 label-font = 3
-
 
 
 [module/memory]
@@ -344,6 +335,7 @@ format-prefix-foreground = ${colors.menucol-purple}
 label = " %gb_used%"
 label-font = 3
 
+
 [module/memoryswap]
 type = internal/memory
 interval = 3
@@ -356,7 +348,6 @@ format-prefix-foreground = ${colors.menucol-pink}
 
 label = " %gb_swap_used%"
 label-font = 3
-
 
 
 [module/temperature]

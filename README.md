@@ -9,7 +9,7 @@ It looks same for some bars, but I prefer to create this configuration for me.
 
 ##### Polybar
 - Lock keys visibility (because my laptop has't any indications)
-- Launcher for pavucontrol and nemo
+- Launcher for system setting and file manager (nemo)
 - Song information (play/pause with middle button) (working with playerctl)
 - Keyboard layout
 - Processor temperature
@@ -19,21 +19,21 @@ It looks same for some bars, but I prefer to create this configuration for me.
 
 ##### i3
 - Changed default font to OpenSans
-- Some new shortcuts for launch apps and control media-player
+- Some new shortcuts for launch apps and control media-player, volume and brightness
 - Configured touchpad (Elan Touchpad)
 - Scripts for control system and make screenshots (with scrot)
-- As DMenu used j4-dmenu-desktop (default configurations)
-- Rofi used in window mode with icons (default configurations)
-- twmnd used as default notification manager
-- Win+L to lock and suspend (i3lock)
+- As DMenu and Win-Tab menu used rofi
+- Dunst used as default notification manager
+- Win+L to lock and suspend (i3lock-fancy)
 - Disabled focus following mouse
 - Compton as window manager
 
 ## Packages in use
 * python
 * polybar
-* i3lock
+* i3lock-fancy
 * rofi
-* twmnd
-* compton
+* rofi-wifi-menu
+* dunst
 * zenity
+* arandr
