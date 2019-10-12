@@ -13,7 +13,13 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Open Sans Semibold 10
+#bar {
+#    font pango:FontAwesome 9
+#    position top
+#    tray_output none
+#    status_command bumblebee-status -m pulseaudio battery bluetooth brightness mpd cpu datetime indicator memory nic nvidiagpu pasource sensors system -t iceberg
+#}
+
 
 # color defines for zenburn styled i3
 set $bg     #333333
@@ -31,6 +37,7 @@ client.urgent               $rd        $rd         $tx
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
+font pango:Open Sans Semibold 9
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -49,9 +56,10 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec rofi -show drun -show-icons -location 2 -yoffset 30
-bindsym $mod+Tab exec rofi -show window -show-icons -location 2 -yoffset 30
-bindsym $mod+Shift+Tab exec rofi -show windowcd -show-icons -location 2 -yoffset 30
+# bindsym $mod+d exec --no-startup-id j4-dmenu-desktop 
+bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons -location 2 -yoffset 30
+bindsym $mod+Tab exec --no-startup-id rofi -show window -show-icons -location 2 -yoffset 30
+bindsym $mod+Shift+Tab exec --no-startup-id rofi -show windowcd -show-icons -location 2 -yoffset 30
 
 #    dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
@@ -178,7 +186,7 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-bindsym $mod+r mode "resize"
+#bindsym $mod+r mode "resize"
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -224,25 +232,36 @@ for_window [class="Engrampa"] floating enable
 for_window [class="Arandr"] floating enable
 for_window [class="Nm-connection-editor"] floating enable
 
+# for_window [class="Firefox"] border pixel 2
+# for_window [class="firefox"] border pixel 2
+for_window [class=".*"] border pixel 1
+
+for_window [class="telegram-desktop"] resize shrink 10 ppt
+
+gaps inner 5
+smart_borders on
+smart_gaps on
+
+
 #Volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%   #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%   #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle         #mute sound
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5                              # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5                            # decrease screen brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5                              # increase screen brightness
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5                            # decrease screen brightness
 
 #Player Controls
-bindcode Mod1+110 exec playerctl play-pause
-bindcode Mod1+112 exec playerctl stop
-bindcode Mod1+117 exec playerctl previous
-bindcode Mod1+115 exec playerctl next
+bindcode Mod1+110 exec --no-startup-id playerctl play-pause
+bindcode Mod1+112 exec --no-startup-id playerctl stop
+bindcode Mod1+117 exec --no-startup-id playerctl previous
+bindcode Mod1+115 exec --no-startup-id playerctl next
 
 
 focus_follows_mouse no
 
-exec nitrogen --restore
+exec --no-startup-id nitrogen --restore
 
 #xinput list-props "ETPS/2 Elantech Touchpad"
 exec_always xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Tapping Enabled" 1                 #Touchpad Enable Tapping
@@ -252,30 +271,40 @@ exec_always xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Disable While T
 exec_always xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Horizontal Scroll Enabled" 1       #Touchpad Horizontal Scrolling enable
 exec_always xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Accel Speed" 0.14                  #Touchpad Accel Speed
 
+exec_always xinput set-prop "ELAN0501:00 04F3:3019 Touchpad" "libinput Tapping Enabled" 1                 #Touchpad Enable Tapping
+exec_always xinput set-prop "ELAN0501:00 04F3:3019 Touchpad" "libinput Natural Scrolling Enabled" 1       #Touchpad Enable Natural Scrolling
+exec_always xinput set-prop "ELAN0501:00 04F3:3019 Touchpad" "libinput Middle Emulation Enabled" 1        #Touchpad Enable Middle Click Simulation
+exec_always xinput set-prop "ELAN0501:00 04F3:3019 Touchpad" "libinput Disable While Typing Enabled" 0    #Touchpad Disable While Typing Enabled
+exec_always xinput set-prop "ELAN0501:00 04F3:3019 Touchpad" "libinput Horizontal Scroll Enabled" 1       #Touchpad Horizontal Scrolling enable
+exec_always xinput set-prop "ELAN0501:00 04F3:3019 Touchpad" "libinput Accel Speed" 0.14                  #Touchpad Accel Speed
+
+#ELAN0501:00 04F3:3019 Touchpad
+
 #Keyboard Layout
 exec_always setxkbmap -layout us,ru
 exec_always setxkbmap -option "grp:win_space_toggle"
 
 #Applications startup
-
 exec --no-startup-id telegram-desktop
 exec --no-startup-id vk-messenger
 exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id dunst
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id libinput-gestures-setup start
 
 #Screenshoter
-bindsym --release Shift+Print exec sh $HOME/.config/i3/screenshot.sh partial
-bindsym --release Ctrl+Shift+Print exec sh $HOME/.config/i3/screenshot.sh partial clipboard
+bindsym --release Shift+Print exec --no-startup-id sh $HOME/.config/i3/screenshot.sh partial
+bindsym --release Ctrl+Shift+Print exec --no-startup-id sh $HOME/.config/i3/screenshot.sh partial clipboard
 
-bindsym --release Print exec sh $HOME/.config/i3/screenshot.sh full
-bindsym --release Ctrl+Print exec sh $HOME/.config/i3/screenshot.sh full clipboard
+bindsym --release Print exec --no-startup-id sh $HOME/.config/i3/screenshot.sh full
+bindsym --release Ctrl+Print exec --no-startup-id sh $HOME/.config/i3/screenshot.sh full clipboard
 
-bindsym --release Mod1+Print exec sh $HOME/.config/i3/screenshot.sh current
-bindsym --release Ctrl+Mod1+Print exec sh $HOME/.config/i3/screenshot.sh current clipboard
+bindsym --release Mod1+Print exec --no-startup-id sh $HOME/.config/i3/screenshot.sh current
+bindsym --release Ctrl+Mod1+Print exec --no-startup-id sh $HOME/.config/i3/screenshot.sh current clipboard
 
 #Polybar
-exec_always sh $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id sh $HOME/.config/polybar/launch.sh
 
-bindsym $mod+Shift+t exec termite
-bindsym Ctrl+Mod1+t exec termite
-bindsym $mod+l exec sh $HOME/.config/i3/lock.sh suspend
+bindsym $mod+Shift+t exec --no-startup-id termite
+bindsym Ctrl+Mod1+t exec --no-startup-id termite
+bindsym $mod+l exec --no-startup-id sh $HOME/.config/i3/lock.sh suspend

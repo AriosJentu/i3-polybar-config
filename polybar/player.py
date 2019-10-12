@@ -36,7 +36,11 @@ if artist_start >= 0:
 	if len(result) > trunclen:
 		result = result[:trunclen] + "..."
 
+
 	res += result
+
+	if "No players found" in res:
+		res = ""
 
 
 print(res)

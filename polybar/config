@@ -1,9 +1,9 @@
 [fonts]
-opensansreg = DroidSans:Regular:size=10
-opensanssemibold = DroidSans:SemiBold:size=9
-opensansbold = DroidSans:Bold:size=9
+opensansreg = DroidSans:Regular:size=8
+opensanssemibold = DroidSans:SemiBold:size=8
+opensansbold = DroidSans:Bold:size=8
 opensansboldhigh = DroidSans:Bold:size=11
-opensansital = DroidSans:Italic:size=10
+opensansital = DroidSans:Italic:size=9
 xos = xos4\ Terminus:size=14;0
 nerd = TerminessTTF Nerd Font:size=12;0
 
@@ -24,7 +24,6 @@ menucol-pink = #FF77BF
 menucol-deepblue = #6560FF
 menucol-lightblue = #60FFF7
 
-
 fav-purple = #6633FF
 dark = #111
 dark-red = #311
@@ -41,13 +40,13 @@ override-redirect = false
 
 bottom = false
 width = 100%
-height = 26 ;px
+height = 22 ;px
 
 background = ${colors.dark}
 foreground = ${colors.light}
 
 line-color = ${colors.light-purple}
-line-size = 3
+line-size = 2
 
 separator = "   "
 
@@ -63,7 +62,7 @@ font-6 = ${fonts.opensansboldhigh}
 wm-restack = i3
 tray-position = left
 
-modules-left = workspaces kbstates settings appfilemanager mediaplayer
+modules-left = workspaces xkbstates xkillapp settings appfilemanager mediaplayer
 modules-center = date media
 modules-right = layout temperature memory memoryswap cpu battery brightness sound wifi powermenu
 
@@ -136,8 +135,9 @@ label-urgent-font = 3
 type = custom/script
 format = <label>
 format-padding = 2
-exec = /home/arios/.config/polybar/player.py
-tail = true
+exec = ~/.config/polybar/player.sh
+exec-if = playerctl status
+interval = 0.5
 label-font = 3
 click-middle = playerctl play-pause
 
@@ -152,13 +152,19 @@ content-font = 7
 content-padding = 2
 click-left = sh ~/.config/i3/settings.sh
 
-
 [module/appfilemanager]
 type = custom/text
 content = 
 content-font = 7
 content-padding = 2
 click-left = "nemo > /dev/null 2>&1 &"
+
+[module/xkillapp]
+type = custom/text
+content = 
+content-font = 7
+content-padding = 2
+click-left = sleep 0.5 && xkill > /dev/null 2>&1 &
 
 
 ;Network
@@ -238,6 +244,21 @@ label-layout = %layout%
 label-layout-font = 2
 label-layout-foreground = ${colors.light}
 
+;Keyboard lock states by xkeyboard
+[module/xkbstates]
+type = internal/xkeyboard
+format = <label-indicator>
+
+format-underline = ${colors.menucol-green}
+format-padding = 2
+
+label-indicator-on-capslock = "%{F#77BD8B} "
+label-indicator-off-capslock = "%{F#333} "
+label-indicator-on-numlock = "%{F#77BD8B} "
+label-indicator-off-numlock = "%{F#333} "
+label-indicator-on-scrolllock = "%{F#77BD8B}"
+label-indicator-off-scrolllock = "%{F#333}"
+
 
 ;Keyboard lock states
 [module/kbstates]
@@ -247,7 +268,6 @@ format-underline = ${colors.menucol-green}
 format-padding = 2
 
 exec = $HOME/.config/polybar/kblocks.py
-tail = true
 interval = 0.5
 label-font = 7
 label-foreground = ${colors.menucol-green}
@@ -281,10 +301,10 @@ format-discharging-padding = 2
 format-discharging-underline = ${colors.menucol-orange}
 
 label-charging = %percentage%
-label-charging-font = 2
+label-charging-font = 3
 
 label-discharging = %percentage%
-label-discharging-font = 2
+label-discharging-font = 3
 
 animation-charging-0 = 
 animation-charging-1 = 
