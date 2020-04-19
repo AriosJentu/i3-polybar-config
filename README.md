@@ -37,3 +37,6 @@ It looks same for some bars, but I prefer to create this configuration for me.
 * dunst
 * zenity
 * arandr
+
+## Extra
+* Nerd Fonts - https://www.nerdfonts.com/
